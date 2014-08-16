@@ -35,7 +35,7 @@ def chunker(size, chunks):
         begin = byte_index
         end = begin + chunks
         ranges[list_index] = (begin, end)
-        byte_index = end
+        byte_index = end + 1
         list_index = list_index + 1
     if size-byte_index > 0:
         ranges[list_index] = (byte_index, (size-byte_index)+byte_index)
