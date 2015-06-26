@@ -17,6 +17,8 @@ parser.add_argument('-e', '--end', type=int, default=-1, metavar='<end byte inde
   dest='end', help='the byte to end with')
 parser.add_argument('-c', '--chunk-size', type=int, default='12', metavar='<chunk size>', 
   dest='chunksize', help='the number of bytes per requests (default: 12)')
+parser.add_argument('-f', '--filename', type=str, default='', metavar='<file name>',
+  dest='filename', help='the file name to write the requested resource to')
 
 args = parser.parse_args()
 
@@ -59,7 +61,10 @@ if __name__ == "__main__":
     size = head_size(args.url, args.ua, args.host)
     ranges = chunker(size, args.chunksize)
     data = {}
-    buf = StringIO.StringIO()
+    if args.filename:
+      buf = open(args.filename, 'w')
+    else:
+      buf = StringIO.StringIO()
     keys = ranges.keys()
     random.shuffle(keys)
 
@@ -69,4 +74,7 @@ if __name__ == "__main__":
       data[key] = f.read()
     for key in sorted(data):
       buf.write(data[key])
-    print buf.getvalue()
+    if args.filename:
+      buf.close()
+    else:
+      print buf.getvalue()

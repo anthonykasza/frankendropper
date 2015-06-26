@@ -18,7 +18,7 @@ parser.add_argument('-e', '--end', type=int, default=-1, metavar='<end byte inde
 parser.add_argument('-c', '--chunk-size', type=int, default='12', metavar='<chunk size>', 
   dest='chunksize', help='the number of bytes per requests (default: 12)')
 parser.add_argument('-f', '--filename', type=str, default='', metavar='<file name>', 
-  dest='filename', required=True, help='the file name to POST')
+  dest='filename', required=True, help='the file name to PUT')
 
 args = parser.parse_args()
 
